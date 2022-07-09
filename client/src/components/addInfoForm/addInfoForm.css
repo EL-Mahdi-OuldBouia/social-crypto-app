@@ -1,0 +1,29 @@
+.addInfoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputInfo {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fefefe;
+  display: inline;
+}
+.inputInfo:focus {
+  outline: none;
+}
+
+.addInfo {
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 1px 2px 3px #ccc, 1px -2px 3px #ccc;
+}
+
+.addInfo:active {
+  transform: scale(0.97);
+}
+
+.formLabelradio {
+  font-weight: 600;
+}

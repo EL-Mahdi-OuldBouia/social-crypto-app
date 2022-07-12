@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './profile.css';
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from '../../components/sidebar/Sidebar';
 import Feed from '../../components/feed/Feed';
 import Rightbar from '../../components/rightbar/Rightbar';
-import coverImg from '../../imgs/logo.png'
+import coverImg from '../../imgs/logo.png';
+
 
 const Profile = () => {
     const [user, setUser] = useState({});
+    const userId = useSelector(state => state.user.user)
     useEffect(() => {
         const fetchUserProfile = async () => {
             console.log('hello from profile');
-            await axios.get('/users/62c5cdc71390184b6a11bfa8')
+            await axios.get('/users/' + userId.userId)
                 .then((response) => {
                     console.log('response from user profile', response.data);
                     setUser(response.data);
@@ -22,7 +25,7 @@ const Profile = () => {
                 })
         };
         fetchUserProfile();
-    }, [])
+    }, [userId.userId])
     return (
         <>
             <Topbar />

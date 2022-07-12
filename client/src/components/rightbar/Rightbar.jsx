@@ -9,12 +9,12 @@ import UserInfo from '../userInfo/UserInfo';
 import AddInfoForm from '../addInfoForm/AddInfoForm';
 // import { Button } from '@mui/material';
 
-const Rightbar = ({ profile }) => {
+const Rightbar = ({ profile, currentUser }) => {
     const [followings, setFollowings] = useState([]);
 
     useEffect(() => {
         const fetchFollowings = async () => {
-            await axios.get('/users/62c5cdc71390184b6a11bfa8')
+            await axios.get('/users/' + currentUser._id)
                 .then((response) => {
                     setFollowings(response.data.followings);
                 })
@@ -52,7 +52,7 @@ const Rightbar = ({ profile }) => {
         return (
             <>
                 <h4 className="rightbarTitle">User information</h4>
-                {!addInfoState ? (false? <UserInfo />: <AddInfoForm/>) :     
+                {!addInfoState ? (false ? <UserInfo /> : <AddInfoForm />) :
                     <button className='add-info' onClick={addStateHandler}>Add Info</button>}
                 <h4 className="rightbarTitle">User friends</h4>
                 <div className="rightbarFollowings">

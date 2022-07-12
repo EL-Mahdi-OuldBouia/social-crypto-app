@@ -16,7 +16,7 @@ const Online = ({ followingId, profileImg }) => {
                 })
         };
         fetchFollowing();
-    })
+    },[])
 
     return (
         <li className="rightbarFriend">
@@ -30,4 +30,4 @@ const Online = ({ followingId, profileImg }) => {
     )
 }
 
-export default Online
+export default Online;

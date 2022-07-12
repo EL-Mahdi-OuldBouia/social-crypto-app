@@ -5,13 +5,15 @@ import Post from '../post/Post';
 import axios from 'axios';
 
 
-const Feed = () => {
+const Feed = ({ currentUser }) => {
     const [posts, setPosts] = useState([]);
+    console.log('currentUser from feed', currentUser._id)
+    console.log('posts from Feed', posts);
 
     useEffect(() => {
         const fetchFunction = async () => {
 
-            await axios.get('/posts/timeline/62c5cdc71390184b6a11bfa8')
+            await axios.get('/posts/timeline/' + currentUser._id)
                 .then((response) => {
                     console.log(response.data);
                     setPosts(response.data);
@@ -20,43 +22,9 @@ const Feed = () => {
                     console.log('An Error was occured in getting posts', error)
                 })
 
-            // const user = {
-            //     username: 'Stan',
-            //     email: 'stan@gmail.com',
-            //     password: '123456789',
-            //     profilePicture: '',
-            //     coverPicture: '',
-            //     desc: 'What a good day to be Alive',
-            //     city: 'Agadir',
-            //     from: 'Morocco',
-            // }
-
-            // const post = {
-            //     userId: 1,
-            //     desc: 'My first post description',
-            //     img: '',
-            //     likes: [],
-            //     comments: [{}],
-            // }
-
-            // await axios.post('/auth/register', user)
-            //     .then((response) => {
-            //         console.log(response);
-            //     }, (error) => {
-            //         console.log("An error was occured in creating user", error);
-            //     });
-
-            // await axios.post('/posts', post)
-            //     .then((response) => {
-            //         console.log(response)
-            //     })
-            //     .catch((error) => {
-            //         console.log('An error was occured in creating post', error);
-            //     })
-
         }
         fetchFunction();
-    }, [])
+    }, [currentUser._id])
 
 
     return (

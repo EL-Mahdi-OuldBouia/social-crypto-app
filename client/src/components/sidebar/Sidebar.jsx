@@ -9,15 +9,13 @@ import {
 } from '@mui/icons-material';
 import friendImg from '../../imgs/bitcoin.png';
 import Friend from '../friend/Friend';
-import { Friends } from '../../dummyData';
 
-const Sidebar = () => {
+const Sidebar = ({ currentUser }) => {
     const [followers, setFollowers] = useState([]);
-    const currentUser = "62c5cdc71390184b6a11bfa8";
     useEffect(() => {
 
         const fetchFollowers = async () => {
-            await axios.get('/users/' + currentUser)
+            await axios.get('/users/' + currentUser._id)
                 .then((res) => {
                     setFollowers(res.data.followers)
                     console.log('friends followrs from left bar', followers);

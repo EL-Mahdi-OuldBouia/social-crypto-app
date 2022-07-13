@@ -25,7 +25,7 @@ const Sidebar = ({ currentUser }) => {
                 });
         }
         fetchFollowers();
-    }, [])
+    }, [currentUser._id])
 
     return (
         <div className='sidebar'>

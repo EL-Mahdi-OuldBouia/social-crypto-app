@@ -92,3 +92,15 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+a {
+  text-decoration: none;
+  color: #fefefe;
+  margin-right: 2px;
+}
+
+.reqs {
+  position: relative;
+}
+
+/* FRIENDSHIP REQUESTS */

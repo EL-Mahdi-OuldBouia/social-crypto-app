@@ -11,19 +11,23 @@ import axios from 'axios';
 const Home = () => {
   const [currentUser, setCurrentUser] = useState({});
   const userId = useSelector(state => state.user.user);
-  console.log('the userId from Home', userId.data.userId);
+
+  console.log('the userId from Home', userId.data);
   useEffect(() => {
     const getUser = async () => {
       await axios.get('/users/' + userId.data.userId)
         .then((res) => {
           setCurrentUser(res.data);
+          console.log('the userId inside the request Home', res.data);
         })
         .catch((err) => {
           console.log('An error was occured in gettig user in home', err);
         })
     };
     getUser();
-  }, [userId.data.userId])
+
+  }, [userId.data.userId, userId]);
+
   return (
     <div>
       <Topbar currentUser={currentUser} />
@@ -33,6 +37,7 @@ const Home = () => {
         <Rightbar currentUser={currentUser} />
       </div>
     </div>
+
   )
 }
 export default Home;

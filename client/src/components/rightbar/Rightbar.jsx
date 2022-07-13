@@ -7,7 +7,7 @@ import profileImg from '../../imgs/logo.png';
 import Online from '../online/Online';
 import UserInfo from '../userInfo/UserInfo';
 import AddInfoForm from '../addInfoForm/AddInfoForm';
-// import { Button } from '@mui/material';
+
 
 const Rightbar = ({ profile, currentUser }) => {
     const [followings, setFollowings] = useState([]);
@@ -23,7 +23,7 @@ const Rightbar = ({ profile, currentUser }) => {
                 })
         };
         fetchFollowings();
-    }, [])
+    }, [currentUser._id])
 
     const HomeRightbar = () => {
         return (

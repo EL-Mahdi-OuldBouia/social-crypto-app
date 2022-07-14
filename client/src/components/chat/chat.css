@@ -1,0 +1,79 @@
+.chat {
+  width: 234px;
+  height: 270px;
+  background-color: #babbbbee;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border: 2px solid rgb(64, 58, 58);
+  position: relative;
+}
+
+.chatInfo {
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.02rem;
+  gap: 5px;
+  margin-top: 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #eee;
+}
+
+.chatInfo img {
+  margin-left: 4px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.remove {
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: tomato;
+  transform: translateX(65px);
+  transition: 0.3s ease-out;
+}
+
+.minus {
+  color: grey;
+}
+
+.remove:active {
+  transform: scale(0.97) translateX(65px);
+}
+
+.messages {
+  background-color: #fefefe;
+  height: 178px;
+  border-bottom: 2px dashed;
+  padding-bottom: 3px;
+}
+
+.writeMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: rgb(28, 28, 28);
+  bottom: 0;
+  border-left: 0.27rem solid #97938f;
+}
+
+.writeMessage textarea {
+  resize: none;
+}
+
+.writeMessage textarea:focus {
+  outline: none;
+}
+
+.sendBtn {
+  color: #fefefe;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.08s ease-in;
+}
+
+.sendBtn:active {
+  transform: scale(0.96);
+}

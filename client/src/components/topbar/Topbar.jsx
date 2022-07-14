@@ -1,12 +1,14 @@
 import './topbar.css';
 import { useState } from 'react';
-import logo from '../../imgs/logot.png';
-import App2 from '../../imgs/app2.png';
-import ReqContainer from '../reqContainer/ReqContainer';
+import { useSelector } from 'react-redux';
 import { Search, Person, Chat, Notifications } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import ReqContainer from '../reqContainer/ReqContainer';
+import logo from '../../imgs/logot.png';
+import App2 from '../../imgs/app2.png';
+import FriendshipRequests from '../friendshipRequests/FriendshipRequests'
+import RecievedMessages from '../recievedMessages/RecievedMessages';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 const Topbar = () => {
     const userId = useSelector(state => state.user.user);
@@ -22,6 +24,7 @@ const Topbar = () => {
             })
     }
     const [showReq, setShowReq] = useState(false);
+    const [showMsg, setshowMsg] = useState(false);
     return (
         <div className='topbarContainer'>
             <div className="topbarLeft">
@@ -53,11 +56,17 @@ const Topbar = () => {
                 <div className="topbarIcons">
                     <div className="topbarIconItem reqs">
                         <Person onClick={() => setShowReq(!showReq)} />
-                        {!showReq &&<ReqContainer/>}
+                        {!showReq &&
+                            <ReqContainer Req={FriendshipRequests}
+                                title={"New Connecting Requests"}
+                            />}
                         <span className="topbarIconBadge">1</span>
                     </div>
                     <div className="topbarIconItem">
-                        <Chat />
+                        <Chat onClick={() => setshowMsg(!showMsg)} />
+                        {showMsg && <ReqContainer Req={RecievedMessages}
+                            title={"New Messages"}
+                        />}
                         <span className="topbarIconBadge">1</span>
                     </div>
                     <div className="topbarIconItem">

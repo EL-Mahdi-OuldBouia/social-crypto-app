@@ -1,14 +1,13 @@
 import React from 'react';
 import './reqContainer.css';
-import FriendshipRequests from '../friendshipRequests/FriendshipRequests';
 
-const ReqContainer = () => {
+const ReqContainer = ({ Req, title }) => {
     return (
         <div className='reqContainer'>
-            <div className='title'>People who want to connect</div>
-            <FriendshipRequests />
-            <FriendshipRequests />
-            <FriendshipRequests />
+            <div className='title'>{title}</div>
+            <Req />
+            <Req />
+            <Req />
         </div>
     )
 }

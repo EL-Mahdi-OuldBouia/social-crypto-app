@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 // GET the user Id and send it 
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../store/user-slice';
-
+import Chat from '../../components/chat/Chat';
 
 
 const Login = () => {
@@ -70,6 +70,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Chat />
         </div>
     )
 }

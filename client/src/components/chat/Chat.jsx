@@ -5,15 +5,37 @@ import MessageContainer from '../messageContainer/MessageContainer';
 import {
     FaMinus, FaTimes,
     FaPaperPlane,
-    FaExpandArrowsAlt
 } from 'react-icons/fa';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 
 const Chat = ({ user }) => {
-    const [message, setMessage] = useState("");
-    const handleSentMessage = (e) => {
+    const userId = useSelector(state => state.user.user)
+    const date = new Date().getUTCHours() + ':' + new Date().getMinutes()
+
+    const [message, setMessage] = useState({
+        message: "my first message",
+        sender: "you",
+        date: date,
+        isRead: false
+    });
+    const [toBeSentMessage, setToBeSentMessage] = useState({})
+    const handleSentMessage = async (e) => {
         e.preventDefault();
+        const date = new Date().getUTCHours() + ':' + new Date().getMinutes()
+        if (e.target.value !== "") {
+            setToBeSentMessage({
+                message: e.target.value,
+                sender: 'you',
+                date: date,
+                isRead: false
+            })
+            await axios.post('/')
+
+        }
+
     }
     return (
         <div className='chat'>
@@ -26,15 +48,14 @@ const Chat = ({ user }) => {
                 <FaTimes className='remove' />
             </div>
             <div className="messages">
-                message
-                {false && <MessageContainer />}
+                {true && <MessageContainer message={message} />}
             </div>
             <div className="writeMessage">
                 <textarea type="text" cols="27" rows="3"
                     placeholder='send messages'
                     onChange={e => setMessage(e.target.value)}
                 ></textarea>
-                <FaPaperPlane className='sendBtn'/>
+                <FaPaperPlane className='sendBtn' />
             </div>
         </div>
     )

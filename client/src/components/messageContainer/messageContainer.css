@@ -1,0 +1,56 @@
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(247, 254, 254);
+  box-shadow: 1px 1px 2px 1px rgba(0, 28, 3, 0.07);
+  position: relative;
+}
+
+.messageContainer .username {
+  color: #9cb4cc;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: underline;
+  letter-spacing: 0.02rem;
+}
+
+.messageContainer .message {
+  font-size: 0.7rem;
+  margin-right: 3px;
+}
+
+.messageContainer .date {
+  font-size: 0.5rem;
+  font-weight: bold;
+  letter-spacing: 0.02rem;
+}
+
+.messageContainer span {
+  padding-left: 4px;
+}
+
+/*  The Sender's Message  */
+.other {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 2px 1px rgba(0, 28, 3, 0.07);
+  gap: 5px;
+}
+
+.other span {
+  align-self: flex-start;
+  position: absolute;
+  right: 6px;
+}
+
+.other .message {
+  top: 14px;
+}
+
+.other .date {
+  top: 28px;
+}
+
+.other .username{
+    color:#513252;
+}

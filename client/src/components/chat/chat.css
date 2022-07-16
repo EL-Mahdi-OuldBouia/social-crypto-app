@@ -30,7 +30,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   color: tomato;
-  transform: translateX(65px);
+  transform: translateX(60px);
   transition: 0.3s ease-out;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .remove:active {
-  transform: scale(0.97) translateX(65px);
+  transform: scale(0.98) translateX(60px);
 }
 
 .messages {

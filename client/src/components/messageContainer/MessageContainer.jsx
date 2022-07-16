@@ -1,20 +1,22 @@
 import React from 'react';
 import './messageContainer.css';
 
-const MessageConatiner = ({ message, username, date }) => {
+const MessageContainer = ({ message }) => {
     return (
-        <div className='messageContainer'>
+        <div className={'messageContainer' +
+            ((message.sender === 'you') ? '' : ' other')}>
             <span className="username">
-                {username}
+                {message.sender}
             </span>
+            
             <span className="message">
-                {message}
+                {message.message}
             </span>
             <span className="date">
-                {date}
+                {message.date}
             </span>
         </div>
     )
 }
 
-export default MessageConatiner
+export default MessageContainer;

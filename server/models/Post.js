@@ -13,14 +13,14 @@ const PostSchema = mongoose.Schema({
         type: String,
         max: 100
     },
-    img: {
-        type: String,
+    image: {
+        type: Buffer,
     },
     likes: {
         type: Array,
         default: []
     },
-    conmments: {
+    comments: {
         type: Array,
         default: []
     }

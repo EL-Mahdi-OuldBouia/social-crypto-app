@@ -8,8 +8,10 @@ const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/posts');
 const profileRoute = require('./routes/profile');
-dotenv.config();
+const messageRoute = require('./routes/messages');
+const groupRoute = require('./routes/groups')
 const app = express();
+dotenv.config();
 
 
 app.use(express.json());
@@ -21,6 +23,10 @@ app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/profile', profileRoute);
+app.use('/api/message', messageRoute);
+app.use('/api/groups', groupRoute);
+
+
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
 

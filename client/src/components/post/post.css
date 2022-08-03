@@ -7,12 +7,25 @@
 
 .postWrapper {
   padding: 10px;
+ 
 }
+
+
 
 .postTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.trash {
+  font-size: 0.87em;
+  color: rgb(196, 76, 25);
+  cursor: pointer;
+  transition: 0.3s ease-in;
+}
+.trash:hover {
+  transform: translateY(-2px);
 }
 
 .postTopLeft {

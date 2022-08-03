@@ -1,38 +1,45 @@
 import './feed.css';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Share from '../share/Share';
 import Post from '../post/Post';
-import axios from 'axios';
 
 
-const Feed = ({ currentUser }) => {
+
+const Feed = () => {
     const [posts, setPosts] = useState([]);
-    console.log('currentUser from feed', currentUser._id)
-    console.log('posts from Feed', posts);
+    const userId = useSelector(state => state.user.user);
+    const [removedPost, setRemovedPost] = useState("");
+
+    const updatePostState = useSelector(state => state.updatePosts.update)
 
     useEffect(() => {
-        const fetchFunction = async () => {
 
-            await axios.get('/posts/timeline/' + currentUser._id)
-                .then((response) => {
-                    console.log(response.data);
-                    setPosts(response.data);
-                })
-                .catch((error) => {
-                    console.log('An Error was occured in getting posts', error)
-                })
+        const fetchPosts = async () => {
 
+            await fetch('/posts/timeline/' + userId.userId, {
+                method: 'GET'
+            })
+                .then(data => {
+                    data.json().then((data) => {
+                        setPosts(data);
+                    }
+                    )
+                    setRemovedPost("");
+                })
+                .catch((err) => console.log(err))
         }
-        fetchFunction();
-    }, [currentUser._id])
-
+        fetchPosts();
+    }, [updatePostState, userId])
 
     return (
         <div className='feed'>
             <div className="feedWrapper">
                 <Share />
 
-                {posts.map((post) => <Post key={post._id} post={post} />)}
+                {posts.filter((post) => post._id !== removedPost).map((post) =>
+                    <Post key={post._id} postId={post._id} setRemovedPost={setRemovedPost} />
+                )}
 
             </div>
 

@@ -1,64 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './chat.css';
 import profileImage from '../../imgs/logo.png';
 import MessageContainer from '../messageContainer/MessageContainer';
 import {
     FaMinus, FaTimes,
     FaPaperPlane,
+    FaSquare
 } from 'react-icons/fa';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { showHideChatActions } from '../../store/showHideChat-slice';
 
 
 
-const Chat = ({ user }) => {
-    const userId = useSelector(state => state.user.user)
-    const date = new Date().getUTCHours() + ':' + new Date().getMinutes()
+const Chat = () => {
+    const userId = useSelector(state => state.user.user);
+    const currentChatId = useSelector(state => state.currentChat.currentChatId);
+    const dispatch = useDispatch();
+    const [textMessage, setTextMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [minimize, setMinimize] = useState(true);
+    const height = "50px"
 
-    const [message, setMessage] = useState({
-        message: "my first message",
-        sender: "you",
-        date: date,
-        isRead: false
-    });
-    const [toBeSentMessage, setToBeSentMessage] = useState({})
-    const handleSentMessage = async (e) => {
+    const [toBeSendMessage, setToBeSendMessage] = useState({});
+
+
+    console.log('currentChatId', currentChatId.currentChatId);
+    console.log('userId in Chat', userId);
+
+
+    // Getting messages from database for a friend
+    useEffect(() => {
+        const getMessagesForSingleFriend = () => {
+            axios.post('/message/' + userId.userId, {
+                friendId: currentChatId.currentChatId
+            })
+                .then((res) => {
+                    setMessages(res.data);
+                })
+                .catch((err) => {
+                    console.log("An error was occured in Chat while getting messages", err);
+                })
+        }
+        getMessagesForSingleFriend();
+    }, [currentChatId, userId]);
+
+    // Handel Sending and storing messages
+    const handleSendMessage = async (e) => {
         e.preventDefault();
-        const date = new Date().getUTCHours() + ':' + new Date().getMinutes()
-        if (e.target.value !== "") {
-            setToBeSentMessage({
-                message: e.target.value,
-                sender: 'you',
+
+        if (textMessage.trim() !== "" && Object.keys(toBeSendMessage).length > 0) {
+            setMessages(messages => [...messages, toBeSendMessage])
+            await axios.patch('/message/' + userId.userId, {
+                userId: userId.userId,
+                friendId: currentChatId.currentChatId,
+                message: toBeSendMessage
+            })
+                .then((res) => {
+                    setTextMessage('');
+                    setToBeSendMessage({});
+                    console.log("the res in chat", res.data)
+                })
+                .catch((err) => {
+                    console.log('An error was occured in chat ', err)
+                })
+        }
+    }
+
+    useEffect(() => {
+        const onChangeTextMessage = () => {
+            let seconds = new Date().getSeconds();
+            let minutes = new Date().getMinutes();
+            let date = new Date().getUTCHours() + ':' + (minutes >= 10 ? minutes : '0' + minutes) + ':' + (seconds >= 10 ? seconds : '0' + seconds);
+            console.log("date", date);
+            console.log('textMessage in onChange', textMessage);
+            setToBeSendMessage(obj => ({
+                ...obj,
+                message: textMessage.trim(),
+                sender: userId.userId,
                 date: date,
                 isRead: false
-            })
-            await axios.post('/')
-
+            }))
         }
+        onChangeTextMessage();
+    }, [textMessage, userId])
 
+
+    // chat body functions
+
+    const showHideChat = () => {
+        dispatch(showHideChatActions.setShowHideChat());
     }
+
+
     return (
-        <div className='chat'>
+        <div className='chat' style={{ height: (!minimize ? height : "270px") }}>
             <div className="chatInfo">
-                <img src={profileImage} alt="" />
-                <span className='username'>
-                    user.username
-                </span>
-                <FaMinus className='remove minus' />
-                <FaTimes className='remove' />
+                <div id="imageAndUsername">
+                    <img src={profileImage} alt="" />
+                    <span className='username'>
+                        {currentChatId.currentChatFriend}
+                    </span>
+                </div>
+                <div className="sizeChat">
+                    <FaMinus onClick={e => setMinimize(false)} className='remove minus' />
+                    <FaSquare onClick={e => setMinimize(true)} className='minimize' />
+                    <FaTimes onClick={showHideChat} className='remove' />
+                </div>
             </div>
-            <div className="messages">
-                {true && <MessageContainer message={message} />}
+            {minimize && <><div className="messages">
+                {true && messages.map((message) =>
+                    <MessageContainer key={message.date} message={message} />
+                )}
             </div>
-            <div className="writeMessage">
-                <textarea type="text" cols="27" rows="3"
-                    placeholder='send messages'
-                    onChange={e => setMessage(e.target.value)}
-                ></textarea>
-                <FaPaperPlane className='sendBtn' />
-            </div>
+                <div className="writeMessage">
+                    <textarea type="text" cols="27" rows="3"
+                        placeholder='send messages'
+                        onChange={e => setTextMessage(e.target.value)}
+                        value={textMessage}
+                    ></textarea>
+                    <FaPaperPlane className='sendBtn' onClick={handleSendMessage} />
+                </div> </>}
         </div>
     )
 }
 
-export default Chat
+export default Chat;

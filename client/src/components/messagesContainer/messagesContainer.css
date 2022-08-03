@@ -1,0 +1,28 @@
+.messagesContainer {
+  position: absolute;
+  right: 0;
+  top: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(157, 204, 217);
+  width: 200px;
+  border-radius: 4px;
+  border: 1px solid #8b8d93;
+  padding-bottom: 4px;
+  padding-top: 6px;
+  max-height: 160px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.messagesContainer .title {
+  font-size: 0.6rem;
+  color: #db0883;
+  width: 200px;
+  letter-spacing: 0.028rem;
+  font-weight: 500;
+  margin-bottom: 3px;
+  border-bottom: 1px solid rgb(185, 45, 45);
+}

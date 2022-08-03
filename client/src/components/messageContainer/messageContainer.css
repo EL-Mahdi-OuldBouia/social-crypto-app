@@ -1,56 +1,53 @@
 .messageContainer {
   display: flex;
   flex-direction: column;
-  background-color: rgb(247, 254, 254);
-  box-shadow: 1px 1px 2px 1px rgba(0, 28, 3, 0.07);
-  position: relative;
 }
 
 .messageContainer .username {
-  color: #9cb4cc;
-  font-size: 0.8rem;
-  font-weight: 600;
+  margin-top: 6px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.028rem;
   text-decoration: underline;
-  letter-spacing: 0.02rem;
+  margin-left: 3px;
+  color: crimson;
 }
 
 .messageContainer .message {
-  font-size: 0.7rem;
-  margin-right: 3px;
+  margin-top: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  letter-spacing: 0.028rem;
+  color: crimson;
+  background-color: rgb(122, 187, 222);
+  border-radius: 7px;
+  padding: 4px 5px;
 }
 
 .messageContainer .date {
-  font-size: 0.5rem;
+  font-size: 0.55rem;
+  margin: 0 4px;
   font-weight: bold;
-  letter-spacing: 0.02rem;
+  color: crimson;
 }
 
-.messageContainer span {
-  padding-left: 4px;
-}
-
-/*  The Sender's Message  */
-.other {
-  display: flex;
-  flex-direction: column;
-  box-shadow: 1px 1px 2px 1px rgba(0, 28, 3, 0.07);
-  gap: 5px;
-}
-
-.other span {
-  align-self: flex-start;
-  position: absolute;
-  right: 6px;
+.other .username {
+  place-self: end;
+  color: rgb(70, 39, 98);
 }
 
 .other .message {
-  top: 14px;
+  place-self: end;
+  color: rgb(70, 39, 98);
+  margin-bottom: 4px;
+  background-color: rgb(240, 245, 133);
+  border-radius: 7px;
+  padding: 4px 5px;
 }
 
 .other .date {
-  top: 28px;
-}
-
-.other .username{
-    color:#513252;
+  place-self: end;
+  color: rgb(70, 39, 98);
 }

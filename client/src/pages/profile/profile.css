@@ -13,9 +13,44 @@
 }
 
 .profileCoverImg {
-  width:100%;
+  width: 100%;
   height: 250px;
   object-fit: cover;
+}
+
+.profileInfoLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  width: 250px;
+  height: 40px;
+  border-radius: 7px;
+}
+
+.addFriendButton {
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #fff;
+  background-color: aquamarine;
+  border: none;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  margin-left: 6px;
+  transition: 0.2s ease-in;
+}
+
+.addFriendButton:hover {
+  background-color: rgb(114, 192, 166);
+}
+
+.addFriendButton:active {
+  transform: scale(0.98);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 3px 0px,
+    rgba(40, 54, 67, 0.15) 0px 1px 4px 3px;
 }
 
 .profileUserImg {

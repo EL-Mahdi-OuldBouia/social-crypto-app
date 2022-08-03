@@ -1,7 +1,7 @@
 .chat {
   width: 234px;
   height: 270px;
-  background-color: #babbbbee;
+  background-color: #14a4d9;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
   border: 2px solid rgb(64, 58, 58);
@@ -9,14 +9,23 @@
 }
 
 .chatInfo {
+  width: 234px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: 0.7rem;
   letter-spacing: 0.02rem;
   gap: 5px;
   margin-top: 5px;
   padding-bottom: 3px;
   border-bottom: 1px solid #eee;
+}
+
+#imageAndUsername {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .chatInfo img {
@@ -26,23 +35,45 @@
   border-radius: 50%;
 }
 
+.username {
+  color: rgb(51, 46, 49);
+}
+
+.sizeChat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
 .remove {
   font-size: 0.9rem;
   cursor: pointer;
   color: tomato;
-  transform: translateX(60px);
   transition: 0.3s ease-out;
+}
+
+.minimize {
+  font-size: 0.75rem;
+  transition: 0.2s ease-out;
 }
 
 .minus {
   color: grey;
 }
 
+.minimize:active {
+  transform: scale(0.97);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px;
+}
+
 .remove:active {
-  transform: scale(0.98) translateX(60px);
+  transform: scale(0.98);
 }
 
 .messages {
+  overflow-y: scroll;
+
   background-color: #fefefe;
   height: 178px;
   border-bottom: 2px dashed;

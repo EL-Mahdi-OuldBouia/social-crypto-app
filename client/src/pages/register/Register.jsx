@@ -1,8 +1,8 @@
 import './register.css';
 import logo from '../../imgs/logot.png';
 import { Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/user-slice';
 import axios from 'axios';
 
@@ -13,62 +13,48 @@ import axios from 'axios';
 const Register = () => {
     const [nav, setNav] = useState(false);
     const [info, setInfo] = useState({});
-    const [users, setUsers] = useState([]);
-    const [condition, setCondition] = useState({});
     const [goToProfile, setGoToProfile] = useState(false);
+    const [responseInfo, setResponseInfo] = useState({});
+    const [focusValues, setFocusValues] = useState({
+        username: "false",
+        email: "false",
+        password: "false",
+        confirmPassword: "false"
+    });
     const dispatch = useDispatch();
-    useEffect(() => {
-        const getAllUsers = async () => {
-            await axios.get('/users/')
-                .then((res) => {
-                    console.log('all the users', res.data);
-                    setUsers([...res.data]);
-                    setInfo({ ...info, userId: res.data.length });
-                    const isUsername = users.filter((user) => user.username === info.username);
-                    const isEmail = users.filter((user) => user.email === info.email);
-                    setCondition({
-                        email: (isEmail.length > 0),
-                        username: (isUsername.length > 0),
-                        passMatch: (info.password1 === info.password2)
-                    });
-                })
-                .catch((err) =>
-                    console.log('An error was occured', err))
-        };
-        getAllUsers();
-    }, []);
+
     const registerHandler = async (e) => {
         e.preventDefault();
-        console.log('isEmail', condition.email, 'isUsername', condition.username);
-        var newUser = {};
-        if (!condition.username && !(condition.email) && condition.passMatch) {
-            const { userId, username, email, password } = info;
-            newUser = { userId, username, email, password }
+        const usernameValidation = /^[a-zA-Z0-9]{3,20}$/.test(info.username);
+        const emailValidation = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(info.email);
+        const passwordValidation = info.password === info.confirmPassword;
+        const { username, email, password } = info;
+        var newUser = { username, email, password };
+        if (usernameValidation && emailValidation && passwordValidation) {
 
             await axios.post('/auth/register', newUser)
                 .then((res) => {
-                    console.log('response from register route', res);
                     dispatch(userActions.saveUser(res.data));
-                    console.log('the status of the response', res.status)
                     if (res.status === 200) {
                         setGoToProfile(true);
                     }
                 })
                 .catch((err) => {
-                    console.log('An error was occured', err);
+                    setResponseInfo(err.response.data);
+                    console.log('An error was occured', err.response.data);
                 });
             console.log('the data you have entered is from if', newUser)
 
         } else {
-            console.log('the info you have added are :', condition);
+            console.log('Please rectify your data, the info you have added are :', info);
         }
 
     }
-    const userId = useSelector(state => state.user.user);
 
-    const printUserId = () => {
-        console.log('the user id is :', userId);
+    const changeResponseInfo = () => {
+        setResponseInfo({});
     }
+
 
     return (
         <div className="login">
@@ -83,21 +69,56 @@ const Register = () => {
                 </div>
                 <div className="loginRight">
                     <div className="loginBox">
+                        <h2>Register:</h2>
                         <form action="">
-                            <input type='text' placeholder="Username"
-                                className="loginInput" onChange={(e) => setInfo({ ...info, username: e.target.value })} />
-                            <input type='email' placeholder="Email"
-                                className="loginInput" onChange={(e) => setInfo({ ...info, email: e.target.value })} />
-                            <input type='password' placeholder="Password"
-                                className="loginInput" onChange={(e) => setInfo({ ...info, password: e.target.value })} />
-                            <input type='password' placeholder="Password Again"
-                                className="loginInput" onChange={(e) => setInfo({ ...info, password2: e.target.value })} />
-                            <button className="loginButton" onClick={registerHandler}>Sign Up{(goToProfile && <Navigate to='/' />)}</button>
-                            <button className="loginRegisterButton" onClick={() => setNav(true)}>
-                                Log into Account{(nav && <Navigate to='/login' />)}
-                            </button>
+                            <input required pattern="^[a-zA-Z0-9]{3,20}$" type='text'
+                                placeholder="Username" name="username" className="loginInput" id="i1"
+                                onBlur={e => setFocusValues(focusValues => ({ ...focusValues, [e.target.name]: "true" }))}
+                                focus={focusValues.username}
+                                onFocus={changeResponseInfo}
+                                onChange={(e) => setInfo({ ...info, [e.target.name]: e.target.value })} />
+
+                            {Object.keys(responseInfo).includes("usernameExists") && <p>{responseInfo?.usernameExists}</p>}
+                            <span id="s1">username must be between 6-20 characters not containing special characters nor spaces</span>
+
+                            <input required pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$"
+                                type='email' placeholder="Email" name="email" className="loginInput" id="i2"
+                                onBlur={e => setFocusValues(focusValues => ({ ...focusValues, [e.target.name]: "true" }))}
+                                focus={focusValues.email}
+                                onFocus={changeResponseInfo}
+                                onChange={(e) => setInfo({ ...info, [e.target.name]: e.target.value })} />
+                            {Object.keys(responseInfo).includes("emailExists") && <p>{responseInfo?.emailExists}</p>}
+
+                            <span id="s2">please write valid email</span>
+
+                            <input required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                type='text' placeholder="Password" name="password" className="loginInput" id="i3"
+                                onBlur={e => setFocusValues(focusValues => ({ ...focusValues, [e.target.name]: "true" }))}
+                                focus={focusValues.password}
+                                onChange={(e) => setInfo({ ...info, [e.target.name]: e.target.value })} />
+
+                            <span id="s3">password must be at least 8 characters, containing at least 1 number and 1 special character</span>
+
+                            <input required pattern={`^${info.password}$`} className="loginInput" id="i4"
+                                type='text' placeholder="Password Again" name="confirmPassword"
+                                onBlur={e => setFocusValues(focusValues => ({ ...focusValues, [e.target.name]: "true" }))}
+                                focus={focusValues.confirmPassword}
+                                onChange={(e) => setInfo({ ...info, [e.target.name]: e.target.value })} />
+
+                            <span id="s4">passwords must match</span>
+
+                            <div className="btn-align">
+                                <button type='submit' className="registerButton"
+                                    onClick={registerHandler}>
+                                    Sign Up{(goToProfile && <Navigate to='/' />)}
+                                </button>
+                                <button className="loginRegisterButton"
+                                    onClick={() => setNav(true)}>
+                                    Sign In{(nav && <Navigate to='/login' />)}
+                                </button>
+                            </div>
+
                         </form>
-                        <button onClick={printUserId}>click me</button>
                     </div>
                 </div>
             </div>

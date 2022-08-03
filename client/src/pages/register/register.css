@@ -33,36 +33,96 @@
 }
 
 .loginBox {
-  height: 400px;
+  height: 350px;
   padding: 20px;
   background-color: white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.loginBox h2 {
+  font-size: 2rem;
+  text-decoration: underline;
+  color: rgb(104, 138, 160);
 }
 
 .loginInput {
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   border: 1px solid gray;
   font-size: 18px;
   padding-left: 20px;
+  margin: 3px 0;
+}
+
+/* Validation Inputs */
+.loginBox span:nth-of-type(1) {
+  color: red;
+  display: none;
+  font-size: 0.75rem;
+}
+
+.loginBox span:nth-of-type(2) {
+  color: red;
+  display: none;
+  font-size: 0.75rem;
+}
+
+.loginBox span:nth-of-type(3) {
+  color: red;
+  display: none;
+  font-size: 0.75rem;
+}
+
+.loginBox span:nth-of-type(4) {
+  color: red;
+  display: none;
+  font-size: 0.75rem;
+}
+
+.loginBox p {
+  color: red;
+  font-size: 0.75rem;
+}
+
+input:nth-of-type(1):invalid[focus="true"] ~ .loginBox span:nth-of-type(1) {
+  display: block;
+}
+
+input:nth-of-type(2):invalid[focus="true"] ~ .loginBox span:nth-of-type(2) {
+  display: block;
+}
+
+input:nth-of-type(3):invalid[focus="true"] ~ .loginBox span:nth-of-type(3) {
+  display: block;
+}
+
+input:nth-of-type(4):invalid[focus="true"] ~ .loginBox span:nth-of-type(4) {
+  display: block;
 }
 
 .loginInput:focus {
   outline: none;
 }
 
-.loginButton {
+.registerButton {
   height: 50px;
   border-radius: 10px;
   border: none;
   background-color: #83c5be;
   color: white;
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
+}
+
+.loginBox .btn-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .loginForgot {

@@ -7,9 +7,30 @@ const bcrypt = require('bcrypt');
 router.post('/register', async (req, res) => {
 
     try {
+        let validations = {}
+        console.log("request is :", req.body)
+        const isUsernameExists = await User.find({
+            username: req.body.username,
+        })
+        if (isUsernameExists.length > 0) {
+            validations = {
+                ...validations,
+                usernameExists: "The username is already taken."
+            }
+        }
+        const isEmailExists = await User.find({
+            email: req.body.email
+        })
+        if (isEmailExists.length > 0) {
+            validations = {
+                ...validations,
+                emailExists: "The email is already signed up with."
+            }
+            console.log('the validations in the backend', validations);
+            return res.status(400).json(validations);
+        }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
         const newUser = new User({
             userId: req.body.userId,
             username: req.body.username,
@@ -19,7 +40,8 @@ router.post('/register', async (req, res) => {
 
         const user = await newUser.save();
         res.status(200).json({
-            userId: user._id
+            userId: user._id,
+            username: user.username
         });
     } catch (err) {
         res.status(500).json({
@@ -39,15 +61,7 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({
             email: email
         });
-        console.log('inside server', user.email);
-        (!user && res.status(404).json("User was not found"));
-        // const validPassword = await bcrypt.compare(req.body.password, user.password);
-        // await console.log('is pass valid', validPassword);
-        // (!validPassword && res.status(404).json('wrong password'))
-
-        res.status(200).json({
-            userId: user._id
-        });
+        res.status(200).json(user);
     } catch (err) {
         res.status(500).json('from error login');
     }

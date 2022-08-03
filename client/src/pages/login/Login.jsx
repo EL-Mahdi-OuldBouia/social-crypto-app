@@ -2,36 +2,51 @@ import './login.css';
 import logo from '../../imgs/logot.png';
 
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Buffer } from 'buffer';
 import { Navigate } from 'react-router-dom';
 
 // GET the user Id and send it 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userActions } from '../../store/user-slice';
-import Chat from '../../components/chat/Chat';
+import { currentCoverPageActions } from '../../store/currentCoverPage-slice';
 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [nav, setNav] = useState(false);
-    var userId = useSelector(state => state.user.user)
     const dispatch = useDispatch();
 
     const fetchUser = async () => {
-        console.log('email', email, 'password', password);
-        await axios.post('/auth/login', {
-            email: email,
-            password: password
+        await fetch('/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
         })
             .then((res) => {
-                dispatch(userActions.saveUser(res))
-                console.log("the body in response", res);
-                console.log("the user Id afer dispatch", userId);
-                if (JSON.stringify(res) !== '{}') {
 
-                    setNav(true)
-                }
+                res.json().then((data) => {
+                    console.log('data in login after json() function', data);
+                    dispatch(userActions.saveUser({
+                        userId: data._id,
+                        username: data.username,
+                        userImage: (Object.keys(data).includes('profilePicture') ? Buffer.from(data.profilePicture.data).toString("base64") : ""),
+                        userCoverImage: (Object.keys(data).includes('coverPicture') ? Buffer.from(data.coverPicture.data).toString("base64") : ""),
+                        friends: data.friends,
+                        friendshipRequests: data.friendshipRequests,
+                        groups: data.groups
+                    })
+                    )
+                    dispatch(currentCoverPageActions.setCurrentCoverPage(data._id))
+                    if (JSON.stringify(data) !== '{}') {
+                        setNav(true)
+                    }
+                })
             })
             .catch((err) => {
                 console.log('An error occured in login', err.message);
@@ -70,7 +85,6 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            <Chat />
         </div>
     )
 }

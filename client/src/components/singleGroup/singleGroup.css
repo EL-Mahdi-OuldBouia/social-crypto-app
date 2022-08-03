@@ -1,0 +1,21 @@
+.sgrp {
+  font-size: 0.85rem;
+  color: royalblue;
+  font-weight: bold;
+  max-height: 120px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.sgrp li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.grp-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}

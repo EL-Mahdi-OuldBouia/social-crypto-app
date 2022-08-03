@@ -11,6 +11,16 @@
 
 .topbarLeft {
   flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbarLeft .username {
+  color: crimson;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  margin-right: 15px;
 }
 
 .logo {
@@ -88,6 +98,34 @@
   font-size: 13px;
 }
 
+.topbarImg .uploadProfileImage {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: rgb(156, 195, 224);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(74, 61, 52);
+}
+
+.topbarImg .uploadProfileImage .relativeInput {
+  cursor: pointer;
+  position: relative;
+}
+
+.topbarImg .uploadProfileImage .relativeInput .inputAbsolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  /* z-index: 1; */
+}
+
+#faCamera {
+  cursor: pointer;
+}
+
 .topbarImg img {
   border-radius: 50%;
   object-fit: cover;
@@ -103,4 +141,9 @@ a {
   position: relative;
 }
 
-/* FRIENDSHIP REQUESTS */
+/* Chat Component */
+
+.chatComponent {
+  position: absolute;
+  z-index: 4;
+}

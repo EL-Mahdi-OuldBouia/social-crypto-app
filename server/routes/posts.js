@@ -1,14 +1,34 @@
 const router = require("express").Router();
 const Post = require('../models/Post');
 const User = require('../models/User')
+const multer = require('multer');
+const fs = require('fs');
 
+
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'uploads');
+    },
+    filename: (req, file, callback) => {
+        callback(null, file.originalname)
+    }
+})
+
+const upload = multer({
+    storage: storage
+})
 
 // CREATE A POST
-router.post('/', async (req, res) => {
-    const newPost = new Post(req.body);
+router.post('/', upload.single('image'), async (req, res) => {
+    data = {
+        ...req.body,
+        image: (req.file ? fs.readFileSync('./uploads/' + req.file.filename) : []),
+    }
+    const newPost = new Post(data);
+    // console.log("new post", newPost);
     try {
         const savedPost = await newPost.save();
-        res.status(200).json(savedPost)
+        res.status(200).json(savedPost);
     } catch (error) {
         res.status(500).json(error)
     }
@@ -18,14 +38,47 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
-        if (post.userId === req.body.userId) {
-            await post.updateOne({
-                $set: req.body
-            })
-            res.status(200).json("the post was updated");
-        } else {
-            res.status(403).json("You can only update your posts");
+        let {
+            change,
+            ...toAdd
+        } = req.body;
+        if (change === "like") {
+
+            const isAlreadyLiking = post.likes.filter(like => like.userId === req.body.userId);
+            if (isAlreadyLiking.length > 0) {
+                change = "dislike"
+            }
         }
+        switch (change) {
+            case "comment":
+                await post.updateOne({
+                    $push: {
+                        comments: toAdd
+                    }
+                })
+                return res.status(200).json("the post was updated");
+            case "like":
+                await post.updateOne({
+                    $push: {
+                        likes: toAdd
+                    }
+                })
+                console.log("liked")
+                return res.status(200).json({
+                    success: true
+                });
+            case "dislike":
+                await post.updateOne({
+                    $pull: {
+                        likes: toAdd
+                    }
+                })
+                console.log('disliked')
+                return res.status(200).json({
+                    success: true
+                });
+        }
+
     } catch (error) {
         res.status(500).json(error);
     }
@@ -34,13 +87,9 @@ router.patch('/:id', async (req, res) => {
 // DELETE A POST 
 router.delete('/:id', async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id);
-        if (post.userId === req.body.userId) {
-            await post.deleteOne();
-            res.status(200).json('The post was deleted');
-        } else {
-            res.status(403).json('you can only delete your own posts')
-        }
+        const post = await Post.findByIdAndDelete(req.params.id);
+        console.log('post was deleted');
+        res.status(200).json('The post was deleted');
     } catch (error) {
         res.status(500).json(error);
     }
@@ -73,6 +122,7 @@ router.patch('/:id/like', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
+        console.log('getting posts from backed');
         res.status(200).json(post);
     } catch (error) {
         res.status(500).json(error)
@@ -82,20 +132,20 @@ router.get('/:id', async (req, res) => {
 // GET TIMELINE POSTS
 router.get('/timeline/:userId', async (req, res) => {
     try {
-        console.log('currentUser id', req.params.userId);
-        // const currentUser = await User.findById(req.params.userId);
         const userPosts = await Post.find({
             userId: req.params.userId
         });
-        // const friendsPosts = await Promise.all(
-        //     currentUser.followings.map(friendId => {
-        //         Post.find({
-        //             userId: friendId
-        //         });
-        //     })
-        // );
-        // res.status(200).json(userPosts.concat(...friendsPosts));
-        res.status(200).json(userPosts);
+        const currentUser = await User.findById(req.params.userId);
+        const friendsPosts = await Promise.all(
+            currentUser.friends.map(friendId =>
+                Post.find({
+                    userId: friendId
+                })
+            )
+        );
+        // console.log('friendsPosts', friendsPosts);
+        res.status(200).json(userPosts.concat(...friendsPosts));
+        // res.status(200).json(userPosts);
     } catch (error) {
         res.status(500).json(error)
     }

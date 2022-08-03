@@ -55,3 +55,40 @@
 .sidebarHr {
   margin: 20px 0;
 }
+
+/* groups Styling */
+
+.grp {
+  display: flex;
+  align-items: center;
+}
+
+.groups-container {
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: end; */
+  flex-direction: column;
+}
+
+.createGroup-btn {
+  width: 120px;
+  height: 25px;
+  font-size: 0.75rem;
+  color: rgb(89, 14, 146);
+  background-color: rgb(115, 231, 190);
+  border: none;
+  border-radius: 6px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+  margin: 7px 0px;
+}
+
+.createGroup-btn:hover {
+  background-color: rgb(112, 220, 182);
+}
+
+.createGroup-btn:active {
+  transform: scale(0.98);
+}

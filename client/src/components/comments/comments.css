@@ -1,0 +1,85 @@
+.comment-container {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.comment-container .just-comments {
+  max-height: 120px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 3px 4px;
+  border: 2px dashed rgb(128, 126, 126);
+  margin-bottom: 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.singleCommentContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgb(111, 199, 216);
+}
+
+.comment-container .singleComment {
+  display: flex;
+  width: 97%;
+  gap: 10px;
+  font-size: 0.88rem;
+  letter-spacing: 0.02rem;
+}
+
+.comment-container .s-username {
+  color: mediumslateblue;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.comment-container .s-date {
+  font-size: 0.65rem;
+  color: brown;
+  text-decoration: underline dashed 2px green;
+}
+
+.addCommentsBox {
+  width: 100%;
+  display: flex;
+}
+
+.comment-container input {
+  padding: 5px 0;
+  outline: none;
+  padding-left: 3px;
+}
+
+.comment-container .addCommentsBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-container .addCommentsBox input {
+  padding-right: 20px;
+}
+
+.comment-container .btn-addComment {
+  border-radius: 5px;
+  border: none;
+  color: black;
+  background-color: aquamarine;
+  cursor: pointer;
+  font-size: 1.02rem;
+  transition: 0.3s ease-out;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.comment-container .btn-addComment:active {
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}

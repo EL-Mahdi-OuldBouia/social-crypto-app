@@ -1,0 +1,84 @@
+.create-group form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid red;
+  background-color: rgb(179, 249, 226);
+  width: 240px;
+  max-height: 260px;
+  gap: 5px;
+  color: rgb(63, 45, 79);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+    rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  border-radius: 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.create-group form input {
+  width: 210px;
+  padding: 4px 0px;
+  outline: none;
+  border-radius: 4px;
+  border: none;
+  margin-left: 4px;
+}
+
+.group-name {
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.creategroup {
+  width: 96%;
+  text-transform: uppercase;
+  background-color: #2e2bbd;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  align-self: center;
+  color: #fefefe;
+  padding: 5px 0px;
+  margin-bottom: 6px;
+  transition: 0.2s ease;
+}
+
+.creategroup:hover {
+  background-color: #202085;
+}
+
+.creategroup:active {
+  transform: scale(0.98);
+}
+
+.title-create-group {
+  width: 100%;
+  background-color: rgb(131, 177, 187);
+  padding: 5px 0px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid #ccc;
+}
+
+.input-group-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.input-group-image-container .group-image {
+  position: absolute;
+  width: 32px;
+  height: 34px;
+  opacity: 0;
+  z-index: 2;
+}
+
+.input-group-image-container #camera {
+  place-content: center;
+  position: absolute;
+  z-index: 1;
+  color: #ccc;
+}

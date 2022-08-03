@@ -7,7 +7,8 @@ const MessageSchema = new mongoose.Schema({
     },
     friendId: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     messages: {
         type: Array,

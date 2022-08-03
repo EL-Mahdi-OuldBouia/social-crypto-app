@@ -31,7 +31,7 @@ router.patch('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const pInfo = await ProfileInfo.find({
-            userId: id
+            userId: req.params.id
         })
         console.log('from profile')
         res.status(200).json(pInfo)

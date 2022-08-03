@@ -21,40 +21,28 @@ const UserSchema = new mongoose.Schema({
         min: 6
     },
     profilePicture: {
-        type: String,
-        default: "",
+        data: Buffer,
+        contentType: String,
     },
     coverPicture: {
-        type: String,
-        default: "",
+        data: Buffer,
+        contentType: String,
     },
-    followers: {
+    friends: {
         type: Array,
         default: []
     },
-    followings: {
+    friendshipRequests: {
         type: Array,
         default: []
+    },
+    groups: {
+        type: Array,
+        dafault: [],
     },
     isAdmin: {
         type: Boolean,
         default: false
-    },
-    desc: {
-        type: String,
-        max: 50
-    },
-    city: {
-        type: String,
-        max: 35
-    },
-    from: {
-        type: String,
-        max: 35
-    },
-    relationship: {
-        type: Number,
-        enum: [1, 2, 3],
     }
 }, {
     timestamps: true

@@ -1,7 +1,7 @@
 
 import './sidebar.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
     RssFeed,
     Chat, OndemandVideo, Group, Bookmark,
@@ -9,23 +9,15 @@ import {
 } from '@mui/icons-material';
 import friendImg from '../../imgs/bitcoin.png';
 import Friend from '../friend/Friend';
+import SingleGroup from '../singleGroup/SingleGroup';
+import CreateGroup from '../createGroup/CreateGroup';
 
-const Sidebar = ({ currentUser }) => {
-    const [followers, setFollowers] = useState([]);
-    useEffect(() => {
+const Sidebar = () => {
+    const userId = useSelector(state => state.user.user);
+    const [isCreateGroup, setIsCreateGroup] = useState(userId.groups.length > 0);
+    const [showGroups, setShowGroups] = useState(false);
 
-        const fetchFollowers = async () => {
-            await axios.get('/users/' + currentUser._id)
-                .then((res) => {
-                    setFollowers(res.data.followers)
-                    console.log('friends followrs from left bar', followers);
-                })
-                .catch((err) => {
-                    console.log('an error occured in fetching friends', err)
-                });
-        }
-        fetchFollowers();
-    }, [currentUser._id])
+
 
     return (
         <div className='sidebar'>
@@ -49,11 +41,18 @@ const Sidebar = ({ currentUser }) => {
                             Videos
                         </span>
                     </li>
-                    <li className="sidebarListItem">
-                        <Group className='sidebarIcon' />
-                        <span className="sidebarListItemText">
+                    <li className="sidebarListItem groups-container">
+                        <span className="sidebarListItemText grp">
+                            <Group className='sidebarIcon' onClick={e => setShowGroups(v=>!v)} />
                             Groups
                         </span>
+                        <div className="groups">
+                            <ul>
+                                {showGroups && userId?.groups.map((groupId) => <SingleGroup showGroups={showGroups} key={groupId} groupId={groupId} groupImage={friendImg} />)}
+                                {!isCreateGroup && <CreateGroup setIsCreateGroup={setIsCreateGroup} />}
+                                <button onClick={e => setIsCreateGroup(v => !v)} className='createGroup-btn'>Create a new group</button>
+                            </ul>
+                        </div>
                     </li>
                     <li className="sidebarListItem">
                         <Bookmark className='sidebarIcon' />
@@ -90,7 +89,9 @@ const Sidebar = ({ currentUser }) => {
                 <hr className='sidebarHr' />
 
                 <ul className="sidebarFriendList">
-                    {followers.map((followerId) => <Friend key={followerId} followerId={followerId} friendImg={friendImg} />)}
+                    {userId.friends?.map((friendId) => <Friend key={friendId}
+                        friendId={friendId}
+                        friendImage={friendImg} />)}
                 </ul>
             </div>
         </div>

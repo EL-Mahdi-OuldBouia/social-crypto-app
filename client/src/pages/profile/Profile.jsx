@@ -13,7 +13,7 @@ const Profile = () => {
     const userId = useSelector(state => state.user.user);
     const friendId = useSelector(state => state.currentCoverPage.currentCoverPage);
     const [coverPageCurrentUser, setCoverPageCurrentUser] = useState({});
-    const [isFriend, setIsFriend] = useState(false);
+    const [isFriend, setIsFriend] = useState(userId.friends.filter((friend) => friend === friendId).length > 0);
 
     useEffect(() => {
         const getUserCoverPage = async () => {
@@ -28,7 +28,7 @@ const Profile = () => {
                             username: data.username,
                             userImage: (Object.keys(data).includes('profilePicture') ? Buffer.from(data.profilePicture.data).toString("base64") : ""),
                             userCoverImage: (Object.keys(data).includes('coverPicture') ? Buffer.from(data.coverPicture.data).toString("base64") : ""),
-                            friends:data.friends
+                            friends: data.friends
                         });
                     })
                 })
@@ -76,10 +76,10 @@ const Profile = () => {
                                     <h4 className="profileInfoName">{userId.username}</h4>
                                     <span className="profileInfoDesc">What a Good Day!</span>
                                 </div>
-                                {!isFriend && <div className="profileInfoLeft">
+                                {/* {!isFriend && <div className="profileInfoLeft">
                                     <span>Add <b>{userId.username.toUpperCase()}</b> as a Friend</span>
                                     <button className="addFriendButton" >ADD</button>
-                                </div>}
+                                </div>} */}
                             </div>
                         </div>
                         <div className='space'></div>

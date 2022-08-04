@@ -32,7 +32,7 @@ const RecievedMessages = ({ el }) => {
             currentChatFriend: friendObject.username
         }))
 
-        dispatch(showHideChatActions.setShowHideChat());
+        dispatch(showHideChatActions.setShowChat());
     }
 
 

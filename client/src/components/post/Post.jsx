@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './post.css';
-import profileImg from '../../imgs/bg.png';
+import profileImg from '../../imgs/logo.png';
 import Comments from '../comments/Comments';
 import { Favorite, ThumbUp } from '@mui/icons-material';
 import { FaTrash } from 'react-icons/fa';
@@ -112,7 +112,7 @@ const Post = ({ postId, setRemovedPost }) => {
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        {userId.userImage === '' ?
+                        {(userId.userImage === '' && userId.userId === post.userId) ?
                             <img src={profileImg} width='100' alt="" className="postProfileImg" />
                             :
                             <img src={`data:image/png;base64,${userId.userImage}`} width='100' alt="" className="postProfileImg" />}

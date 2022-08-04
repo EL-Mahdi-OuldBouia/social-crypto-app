@@ -62,6 +62,27 @@ const Topbar = () => {
     }, []);
 
 
+    /////// Scroll position
+
+    // const [scrollPosition, setScrollPosition] = useState(0);
+    // const style = {
+    //     filter: 'blur(0px)',
+    // }
+    // const handleScroll = () => {
+    //     const position = window.pageYOffset;
+    //     setScrollPosition(position);
+    // };
+
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll, { passive: true });
+
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
+
+    // console.log('the scroll position is :', scrollPosition);
+
 
 
     // window Size
@@ -109,7 +130,7 @@ const Topbar = () => {
 
 
     return (
-        <div className='topbarContainer'>
+        <div className='topbarContainer' >
             <div className="topbarLeft">
                 <span className="logo">
                     <Link to='/'>

@@ -1,0 +1,81 @@
+.chat-area-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-area-group span {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+}
+
+#message-sender {
+  align-self: start;
+  font-weight: bold;
+  font-size: 0.85rem;
+  letter-spacing: 0.02rem;
+  color: #fff;
+  display: inline;
+  background-color: rgb(149, 115, 181);
+  border-radius: 3px;
+  padding: 6px 10px;
+  margin: 4px 6px 5px 4px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.other-sender {
+  align-self: end;
+  font-weight: bold;
+  font-size: 0.85rem;
+  letter-spacing: 0.02rem;
+  color: #fff;
+  display: inline;
+  background-color: rgb(123, 206, 162);
+  border-radius: 3px;
+  padding: 5px 3px;
+  margin: 4px 4px 5px 6px;
+
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+#text-message {
+  align-self: start;
+  font-size: 0.88rem;
+  letter-spacing: 0.03rem;
+  color: rgb(117, 114, 114);
+  background-color: aqua;
+  display: inline;
+  margin: 3px 10px 2px 4px;
+  padding: 5px 6px;
+  border-radius: 4px;
+}
+
+#other-message {
+  align-self: end;
+  font-size: 0.88rem;
+  letter-spacing: 0.03rem;
+  color: rgb(117, 114, 114);
+  background-color: rgb(139, 228, 180);
+  display: inline;
+  margin: 3px 4px 2px 10px;
+  padding: 5px 3px;
+  border-radius: 4px;
+}
+
+#message-date {
+  align-self: start;
+  font-size: 0.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+#other-date {
+  font-size: 0.5rem;
+  font-weight: bold;
+  color: black;
+  align-self: end;
+}

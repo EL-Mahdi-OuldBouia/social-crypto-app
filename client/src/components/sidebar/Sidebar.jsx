@@ -48,7 +48,7 @@ const Sidebar = () => {
                         </span>
                         <div className="groups">
                             <ul>
-                                {showGroups && userId?.groups.map((groupId) => <SingleGroup showGroups={showGroups} key={groupId} groupId={groupId} groupImage={friendImg} />)}
+                                {showGroups && userId?.groups.map((groupId) => <SingleGroup  showGroups={showGroups} key={groupId} groupId={groupId} groupImage={friendImg} />)}
                                 {!isCreateGroup && <CreateGroup setIsCreateGroup={setIsCreateGroup} />}
                                 <button onClick={e => setIsCreateGroup(v => !v)} className='createGroup-btn'>Create a new group</button>
                             </ul>

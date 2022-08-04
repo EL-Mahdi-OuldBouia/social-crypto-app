@@ -8,8 +8,11 @@ const showHideChatSlice = createSlice({
         showHide: false
     },
     reducers: {
-        setShowHideChat(state, action) {
+        setShowHideChat(state) {
             state.showHide = !state.showHide;
+        },
+        setShowChat(state) {
+            state.showHide = true;
         }
     }
 });

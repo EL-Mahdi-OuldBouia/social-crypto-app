@@ -1,0 +1,109 @@
+.group-c-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 650px;
+  height: 475px;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  z-index: 8;
+  right: 0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.group-c-container .group-name {
+  width: 100%;
+  height: 8%;
+  /* margin:0px px ; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gn1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  gap: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.gn1 img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.gn2 {
+  display: flex;
+  margin-right: 5px;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: #ccc;
+}
+
+.icon:active {
+  transform: scale(0.98);
+}
+
+.group-c-container .members-chat {
+  display: flex;
+  height: 72.5%;
+}
+
+.group-c-container .group-members {
+  width: 28%;
+  overflow-y: scroll;
+  overflow-x: auto;
+  background-image: linear-gradient(to right, #e8c8d1 0%, #c5dcda 100%);
+}
+
+.gm {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-c-container .chat-container {
+  width: 72%;
+  height: 100%;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.group-c-container .text-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 3px solid salmon;
+}
+
+textarea {
+  resize: none;
+  outline: none;
+}
+
+.send-message-group {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-right: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.send-message-group:hover {
+  color: #7962b2;
+}
+
+.send-message-group:active {
+  transform: scale(0.97);
+}

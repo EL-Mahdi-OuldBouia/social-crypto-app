@@ -37,6 +37,12 @@ router.post('/group', upload.single('image'), async (req, res) => {
                 members: members.split(',')
             }
         }
+        const groups = await Group.find({
+            groupName: body.groupName
+        })
+        if (groups.length > 0) {
+            return res.status(403).json('the name you have entered is already taken')
+        }
         const newGroup = Group(body);
         console.log('new group id: ', newGroup.id)
         await newGroup.save();
@@ -88,10 +94,36 @@ router.get('/groups/:id', async (req, res) => {
 // UPDATE A GROUP
 router.patch('/group/:id', async (req, res) => {
     try {
-        await Group.findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        });
-        res.status(500).json('the group was successfully updated');
+        const {
+            change,
+            ...message
+        } = req.body
+
+        switch (change) {
+            case "addFriend":
+                await Group.findByIdAndUpdate(req.params.id, {
+                    $push: {
+                        members: req.body.friend
+                    }
+                });
+                return res.status(200).json('the group was successfully updated');
+            case "removeFriend":
+                await Group.findByIdAndUpdate(req.params.id, {
+                    $pull: {
+                        members: req.body.friend
+                    }
+                });
+                return res.status(200).json('the group was successfully updated');
+            case "messages":
+                await Group.findByIdAndUpdate(req.params.id, {
+                    $push: {
+                        messages: message,
+                    }
+                });
+                return res.status(200).json('the group was successfully updated');
+            default:
+                return res.status(500).json('check what to change')
+        }
 
     } catch (error) {
         console.log('an error occured while updating the group', error);

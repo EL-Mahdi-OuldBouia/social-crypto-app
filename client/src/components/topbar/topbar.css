@@ -2,6 +2,15 @@
   height: 50px;
   width: 100%;
   background-color: #5a8b9f;
+  background-color: #9352a0;
+  background-image: linear-gradient(
+    45deg,
+    #9352a0 0%,
+    #f5ff7d 33%,
+    #c84848 66%,
+    #154d77 100%
+  );
+
   display: flex;
   align-items: center;
   position: sticky;
@@ -17,8 +26,8 @@
 }
 
 .topbarLeft .username {
-  color: crimson;
-  font-size: 0.85rem;
+  color: #623aa2;
+  font-size: 1.15rem;
   text-decoration: underline;
   margin-right: 15px;
 }
@@ -26,6 +35,16 @@
 .logo {
   cursor: pointer;
 }
+
+.logo img {
+  width: 75px;
+  transition: 0.2s ease-out;
+}
+
+.logo img:hover {
+  transform: scale(1.2);
+}
+
 .logoImgTopbar {
   cursor: pointer;
   width: 50px;

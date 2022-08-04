@@ -8,6 +8,8 @@ import currentChatSlice from './currentChat-slice';
 import showHideChatSlice from './showHideChat-slice';
 import updatePostsSlice from './updatePosts-slice';
 import currentCoverPageSlice from './currentCoverPage-slice';
+import currentGroupSlice from './currentGroup-slice';
+import showGroupSlice from './showGroup-slice';
 
 
 const store = configureStore({
@@ -18,6 +20,8 @@ const store = configureStore({
         showHideChat: showHideChatSlice.reducer,
         updatePosts: updatePostsSlice.reducer,
         currentCoverPage: currentCoverPageSlice.reducer,
+        currentGroup: currentGroupSlice.reducer,
+        showGroup: showGroupSlice.reducer,
     }
 });
 

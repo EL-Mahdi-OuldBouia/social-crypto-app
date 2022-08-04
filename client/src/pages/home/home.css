@@ -1,3 +1,6 @@
+.home-container {
+  position: relative;
+}
 .container {
   display: flex;
   width: 100%;

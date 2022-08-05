@@ -25,7 +25,7 @@
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
-.other-sender {
+#other-sender {
   align-self: end;
   font-weight: bold;
   font-size: 0.85rem;

@@ -1,30 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { FaPaperPlane, FaTimes, FaMinus, FaSquare } from 'react-icons/fa';
+import image from '../../imgs/logo.png';
 import './groupContainer.css';
 import ChatAreaGroup from '../chatAreaGroup/ChatAreaGroup';
 import { useSelector, useDispatch } from 'react-redux';
 import { showGroupActions } from '../../store/showGroup-slice';
 import GroupMember from '../groupMember/GroupMember';
 import axios from 'axios';
-import image from '../../imgs/logo.png';
+import { io } from 'socket.io-client';
 
+
+
+const socket = io('http://localhost:8080');
 const GroupContainer = () => {
-    const userId = useSelector(state => state.user.user);
     const group = useSelector(state => state.currentGroup.currentGroup);
+    const userId = useSelector(state => state.user.user);
     const dispatch = useDispatch();
     const [messages, setMessages] = useState(group.messages);
     const [message, setMessage] = useState('');
 
+
     useEffect(() => {
         setMessages(group.messages)
-    }, [group])
+        socket.emit('join-room', group.groupId)
+        console.log('hello from socket emit')
+    }, [socket.connect])
 
-    console.log('the group messages are :', group)
+    // LIVE CHAT
+    // JOIN THE GROUP
+    socket.on('connect', () => {
+        console.log('connected')
+    })
+
+
+
+    socket.on('receive-message', message => {
+        setMessages(messages => [...messages, message]);
+        console.log('messages in receive-message', message)
+    })
+
+
     const sendMessage = async () => {
+
         const seconds = new Date().getSeconds();
         const minutes = new Date().getMinutes();
         const date = new Date().getHours() + ':' + (minutes > 10 ? minutes : '0' + minutes) + ':' + (seconds > 10 ? seconds : '0' + seconds)
         if (message.trim() !== "" && group.groupId) {
+            socket.emit('send-message', {
+                sender: userId.username,
+                message: message,
+                date: date
+            }, group.groupId);
             setMessages(messages => [...messages, {
                 sender: userId.username,
                 message: message,
@@ -74,6 +100,7 @@ const GroupContainer = () => {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
+
 
 
     return (

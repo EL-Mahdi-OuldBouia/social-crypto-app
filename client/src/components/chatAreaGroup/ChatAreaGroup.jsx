@@ -1,15 +1,17 @@
 import React from 'react';
 import './chatAreaGroup.css';
+import { useSelector } from 'react-redux';
 
 const ChatAreaGroup = ({ messages }) => {
+    const userId = useSelector(state => state.user.user)
     return (
         <div className='chat-area-group'>
-            {messages?.map((messages) => <span>
-                <span id='message-sender' className='other-sender'>
-                    {messages.sender}
+            {messages?.map((message, index) => <span key={message.date + index}>
+                <span id={(userId.username === message.sender ? 'message' : 'other') + '-sender'} >
+                    {message.sender}
                 </span>
-                <span id='text-message' className='other-message'>{messages.message}</span>
-                <span id='message-date' className='other-date'>{messages.date}</span>
+                <span id={(userId.username === message.sender ? 'text' : 'other') + '-message'} >{message.message}</span>
+                <span id={(userId.username === message.sender ? 'message' : 'other') + '-date'} >{message.date}</span>
             </span>)}
         </div>
     )

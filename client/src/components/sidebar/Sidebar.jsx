@@ -12,10 +12,12 @@ import Friend from '../friend/Friend';
 import SingleGroup from '../singleGroup/SingleGroup';
 import CreateGroup from '../createGroup/CreateGroup';
 
+
 const Sidebar = () => {
     const userId = useSelector(state => state.user.user);
     const [isCreateGroup, setIsCreateGroup] = useState(userId.groups.length > 0);
     const [showGroups, setShowGroups] = useState(false);
+
 
 
 
@@ -43,12 +45,12 @@ const Sidebar = () => {
                     </li>
                     <li className="sidebarListItem groups-container">
                         <span className="sidebarListItemText grp">
-                            <Group className='sidebarIcon' onClick={e => setShowGroups(v=>!v)} />
+                            <Group className='sidebarIcon' onClick={e => setShowGroups(v => !v)} />
                             Groups
                         </span>
                         <div className="groups">
                             <ul>
-                                {showGroups && userId?.groups.map((groupId) => <SingleGroup  showGroups={showGroups} key={groupId} groupId={groupId} groupImage={friendImg} />)}
+                                {showGroups && userId?.groups.map((groupId) => <SingleGroup showGroups={showGroups} key={groupId} groupId={groupId} groupImage={friendImg} />)}
                                 {!isCreateGroup && <CreateGroup setIsCreateGroup={setIsCreateGroup} />}
                                 <button onClick={e => setIsCreateGroup(v => !v)} className='createGroup-btn'>Create a new group</button>
                             </ul>

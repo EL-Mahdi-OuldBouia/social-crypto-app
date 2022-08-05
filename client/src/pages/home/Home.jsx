@@ -6,6 +6,8 @@ import Rightbar from '../../components/rightbar/Rightbar';
 import GroupContainer from '../../components/groupContainer/GroupContainer';
 import { useSelector } from 'react-redux';
 
+
+
 const Home = () => {
   const showGroup = useSelector(state => state.showGroup.showGroup)
 
@@ -20,7 +22,7 @@ const Home = () => {
         <Feed />
         <Rightbar />
       </div>
-      {showGroup && <GroupContainer />}
+      {showGroup && <GroupContainer  />}
     </div>
 
   )

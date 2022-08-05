@@ -11,6 +11,7 @@ const profileRoute = require('./routes/profile');
 const messageRoute = require('./routes/messages');
 const groupRoute = require('./routes/groups')
 const app = express();
+const liveChat = require('./liveChat/liveChat');
 dotenv.config();
 
 
@@ -29,7 +30,7 @@ app.use('/api/groups', groupRoute);
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
-
+        liveChat();
         app.listen(process.env.PORT, () => {
             console.log('The server is running and connected to db')
         })

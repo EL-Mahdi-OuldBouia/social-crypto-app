@@ -19,6 +19,7 @@ const SingleGroup = ({ groupImage, groupId, showGroups }) => {
     const setCurrentGroup = () => {
         dispatch(currentGroupActions.setCurrentGroup(group));
         dispatch(showGroupActions.setShowGroup());
+        
     }
 
     useEffect(() => {
@@ -36,12 +37,11 @@ const SingleGroup = ({ groupImage, groupId, showGroups }) => {
                             members: data.members,
                             messages: data.messages,
                         });
-                        console.log('group:', group);
                     })
                 })
         }
         getGroup();
-    }, [showGroups])
+    }, [showGroups,groupId])
 
     return (
         <div className="sgrp" onClick={setCurrentGroup}>
